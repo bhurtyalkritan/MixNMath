@@ -44,8 +44,8 @@ function scheduleDailyReset() {
 function generateTargetNumberForDaily() {
     const today = new Date();
     const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-    Math.seedrandom(seed); 
-    return Math.floor(Math.random() * 891) + 100; 
+    const rng = new Math.seedrandom(seed); 
+    return Math.floor(rng() * 891) + 100; 
 }
 
 let targetNumber = generateTargetNumberForDaily(); 
@@ -58,7 +58,7 @@ function setDifficulty(newDifficulty) {
   usedDigits.clear(); 
   currentExpression = ''; 
   difficulty = newDifficulty;
-  targetNumber = generateTargetNumber(); 
+  targetNumber = generateTargetNumberForDaily(); 
   updateTargetDisplay(); 
   document.getElementById('expression').innerText = ''; 
   document.getElementById('result').innerText = ''; 
@@ -165,7 +165,7 @@ function checkAnswer() {
 
 
 
-document.addEventListener('DOMContentLoaded', updateTargetDisplay);
+document.addEventListener('DOMContentLoaded', setupGame);
 document.addEventListener('keydown', handleKeyPress);
 
 
